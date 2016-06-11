@@ -1,0 +1,83 @@
+html, body { 
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0; 
+}
+#map {
+	height:100% 
+}
+#mainmap{
+	width: 100%;
+}
+.topmenu{
+	height:25%;
+	background-color: #32a79d;
+	display:flex;
+	flex-direction: column;
+    justify-content: space-around;
+    padding-left: 10px;
+}
+.downmenu{
+	height:75%;
+	background-color: #00635a;
+	color:#fff;
+}
+nav{
+	background-color: #009688;
+}
+.side-nav a {
+	color:#fff;
+	padding:0 10px;
+	font-size: 1.3rem;
+}
+@font-face {
+	font-family: 'Antipasto';
+	font-style: normal;
+	font-weight: 100;
+	src: local('Antipasto'), url('../font/antipasto/antipasto_extralight.otf') format('truetype');
+}
+nav .brand-logo {
+	font-family: Antipasto;
+	color:#fff;
+}
+strong{
+	font-weight: 900;	
+}
+.avatar{
+    width:  80px;
+    height: 80px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    background: url("../images/Menu/leandro.jpg") 20% 50% no-repeat;
+    background-size: 85px 85px;
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.iconright{
+	float:left;
+	padding-right: 15px;
+}
+.iconimage{
+	display: block;
+    height: 56px;
+    line-height: 56px;
+}
+.bluegrey{
+	background-color: #32a79d !important;
+}
+.lightblue{
+	background-color: #44e2d4 !important;
+}
+.loadermaster{
+	position: absolute;
+  	top: 50%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+}
+.modal {
+	top:0 !important;
+	width: 100% !important;
+	height: 100% !important;
+	max-height: 100%; 
+};

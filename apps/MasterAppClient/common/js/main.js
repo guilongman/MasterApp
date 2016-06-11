@@ -12,5 +12,5 @@ function wlCommonInit(){
 	 */
 	
 	// Common initialization code goes here
-	
+	$("#mainmenu").load("pages/menu.html");
 }
