@@ -30,26 +30,4 @@
         Possible values are 'UNDEFINED', 'B2E', 'B2C'.
      -->
   <targetCategory>UNDEFINED</targetCategory>
-  <iphone bundleId="com.MasterAppClient" version="1.0">
-    <worklightSettings include="false"/>
-    <security>
-      <encryptWebResources enabled="false"/>
-      <testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3"/>
-    </security>
-  </iphone>
-  <ipad bundleId="com.MasterAppClient" version="1.0">
-    <worklightSettings include="false"/>
-    <security>
-      <encryptWebResources enabled="false"/>
-      <testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3"/>
-    </security>
-  </ipad>
-  <android version="1.0">
-    <worklightSettings include="false"/>
-    <security>
-      <encryptWebResources enabled="false"/>
-      <testWebResourcesChecksum enabled="false" ignoreFileExtensions="png, jpg, jpeg, gif, mp4, mp3"/>
-      <publicSigningKey/>
-    </security>
-  </android>
 </application>
