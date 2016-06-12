@@ -98,7 +98,7 @@ $(document).ready(function () {
         }, 350);
     }
     function scrollBottom() {
-        $($inner).animate({ scrollTop: $($content).offset().top + $($content).outerHeight(true) }, {
+        $($inner).animate({ scrollTop: $($content).outerHeight() +60}, {
             queue: false,
             duration: 'ease'
         });
