@@ -1,6 +1,7 @@
 body
 {
-	background-color: #ff9900 !important;
+	background-image: url("../images/bg-masterapp.png") !important;
+	background-size:cover;
 }
 
 #login-geral{
@@ -16,5 +17,7 @@ body
 
 #auth-loginlink
 {
-	margin-left: 30%;
+	padding-left: 23%;
+	top: 70%;
+	cursor: pointer;
 }

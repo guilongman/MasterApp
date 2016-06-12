@@ -14,8 +14,8 @@ function wlCommonInit(){
 	 */
 	
 	// Common initialization code goes here
-	$("#mainmenu").load("pages/menu.html");
-	$("#main").load("pages/chat.html");
+	//$("#mainmenu").load("pages/menu.html");
+	$("body").load("pages/login.html");
 
 	messagingInit();
 

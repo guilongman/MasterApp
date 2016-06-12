@@ -1,6 +1,7 @@
 
 /* JavaScript content from js/login.js in folder common */
-		// Load the SDK Asynchronously
+$(document).ready(function(){
+	// Load the SDK Asynchronously
       (function(d){
          var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
          if (d.getElementById(id)) {return;}
@@ -36,10 +37,12 @@
 
         // respond to clicks on the login and logout links
         document.getElementById('auth-loginlink').addEventListener('click', function(){
-          FB.login();
+          //FB.login();
+        	alert("testando");
         });
         
         document.getElementById('auth-logoutlink').addEventListener('click', function(){
           FB.logout();
         }); 
       } 
+});

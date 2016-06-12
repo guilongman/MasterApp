@@ -34,7 +34,8 @@
 
         // respond to clicks on the login and logout links
         document.getElementById('auth-loginlink').addEventListener('click', function(){
-          FB.login();
+          //FB.login();
+        	alert("testando");
         });
         
         document.getElementById('auth-logoutlink').addEventListener('click', function(){

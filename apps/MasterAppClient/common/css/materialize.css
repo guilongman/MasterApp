@@ -3111,7 +3111,7 @@ td, th {
   margin: 0.5rem 0 1rem 0;
   overflow: hidden;
   position: relative;
-  margin-top: 75px;
+  margin-top: 20px;
 }
 
 .collection .collection-item {
@@ -5234,7 +5234,7 @@ a.waves-effect .waves-ripple {
 }
 
 .modal .modal-content {
-  padding: 18px;
+  padding: 0;
 }
 
 .modal .modal-close {
