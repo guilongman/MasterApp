@@ -90,7 +90,7 @@ $(document).ready(function () {
     var $content = $('#content');
     var $inner = $('#inner');
     function safeText(text) {
-        $content.find('.message-wrapper').last().find('.text-wrapper').text(text);
+        $content.find('.message-wrapper').last().find('.text-wrapper').append(text);
     }
     function animateText() {
         setTimeout(function () {
@@ -98,7 +98,7 @@ $(document).ready(function () {
         }, 350);
     }
     function scrollBottom() {
-        $($inner).animate({ scrollTop: $($content).offset().top + $($content).outerHeight(true) }, {
+        $($inner).animate({ scrollTop: $($content).outerHeight() +60}, {
             queue: false,
             duration: 'ease'
         });
@@ -126,14 +126,12 @@ $(document).ready(function () {
     messenger.onSend = buildSent;
     messenger.onRecieve = buildRecieved;
     setTimeout(function () {
-        messenger.recieve('Hello there!');
+        messenger.recieve("Hello there!<button class='btn waves-effect waves-light' id='modalcart' type='submit' name='action'>Submit<i class='material-icons right'>send</i></button>");
+    	$("#modalcart").click(function(){
+    		//$("#pmodalcart").find(".modal-content").load("pages/cart.html");
+    		$('#pmodalcart').openModal();
+    	});
     }, 1500);
-    setTimeout(function () {
-        messenger.recieve('Do you like this? If so check out more on my page...');
-    }, 5000);
-    setTimeout(function () {
-        messenger.recieve('Or maybe just give it a like!');
-    }, 7500);
     $input.focus();
     $send.on('click', function (e) {
         sendMessage();
@@ -146,3 +144,4 @@ $(document).ready(function () {
         }
     });
 });
+
