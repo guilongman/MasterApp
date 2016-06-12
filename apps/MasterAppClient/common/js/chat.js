@@ -72,7 +72,7 @@ var BuildHTML = function () {
         this.themClass = 'them';
     }
     BuildHTML.prototype._build = function _build(text, who) {
-        return '<div class="' + this.messageWrapper + ' ' + this[who + 'Class'] + '">\n              <div class="' + this.circleWrapper + ' animated bounceIn"></div>\n              <div class="' + this.textWrapper + '">...</div>\n            </div>';
+        return '<div class="' + this.messageWrapper + ' ' + this[who + 'Class'] + '">\n              <div class="' + this.circleWrapper + ' animated bounceIn" style="background:none;"><img height="42px" width="42px" src="images/ana.png"></div>\n              <div class="' + this.textWrapper + '">...</div>\n            </div>';
     };
     BuildHTML.prototype.me = function me(text) {
         return this._build(text, 'me');
@@ -82,8 +82,9 @@ var BuildHTML = function () {
     };
     return BuildHTML;
 }();
+
 $(document).ready(function () {
-    var messenger = new Messenger();
+    messenger = new Messenger();
     var buildHTML = new BuildHTML();
     var $input = $('#input');
     var $send = $('#send');
@@ -126,12 +127,21 @@ $(document).ready(function () {
     messenger.onSend = buildSent;
     messenger.onRecieve = buildRecieved;
     setTimeout(function () {
+        messenger.recieve("Oi Victor, tudo bem? Vi que voce esta passando perto do Walmart, você sabia que lá existem alguns beneficios exclusivos para o seu cartão?");
+    }, 1000);
+    setTimeout(function () {
+        messenger.recieve("Por exemplo,</br>Para compras acima de R$: 150,00 você acumula pontos para trocar por presentes e viagens fantásticas;<br/> E, além disso, você pode realizar seus pagamentos em até 3x sem juros!");
+    }, 6000);
+    
+    /*
+    setTimeout(function () {
         messenger.recieve("Hello there!<button class='btn waves-effect waves-light' id='modalcart' type='submit' name='action'>Submit<i class='material-icons right'>send</i></button>");
     	$("#modalcart").click(function(){
     		$("#pmodalcart").find(".modal-content").load("pages/cart.html");
     		$('#pmodalcart').openModal();
     	});
     }, 1500);
+    */
     $input.focus();
     $send.on('click', function (e) {
         sendMessage();
@@ -144,4 +154,7 @@ $(document).ready(function () {
         }
     });
 });
+setInterval(function() {
+    getMessage();
+}, 3000);
 

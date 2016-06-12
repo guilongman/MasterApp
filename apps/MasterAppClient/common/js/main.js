@@ -12,11 +12,15 @@ function wlCommonInit(){
 	 */
 	
 	// Common initialization code goes here
-	//$("#mainmenu").load("pages/menu.html");
-	$("body").load("pages/login.html");
+	$("#pfinally").click(function(){
+		messenger.recieve("<p>E aí, posso fechar o pedido pelo masterpass?</p><button id='btyesfin' class='btn waves-effect waves-light' id='modalcart' type='submit' name='action' style='float:left'>Sim</button><button class='btn waves-effect waves-light' id='modalcart' style='float:right' type='submit'  name='action'>Não</button>");
+		$("#btyesfin").click(function(){
+			messenger.recieve("Beleza! Agora é só apresentar a imagem abaixo na saída:<br></br><img src='images/qrcode.png' alt=''>");
 
+		});
+	});
+	$("#login-geral").show();
 	messagingInit();
-
 	setTimeout(function() {
 	    sendMessage("Blue man group IBM Devs!");
 
@@ -26,7 +30,5 @@ function wlCommonInit(){
 
 	}, 5000);
 
-	setInterval(function() {
-	    getMessage();
-	}, 3000);
 }
+var messenger;

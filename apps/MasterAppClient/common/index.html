@@ -18,28 +18,39 @@
     		<link rel="stylesheet" href="css/login.css">
     		<script>window.$ = window.jQuery = WLJQ;</script>
     	</head>
-    	<body style="display: none;">
+    	<body>
     		<!--application UI goes here-->
-    		<div id="loader"></div>
-  			<div id="mainmenu"></div>
-    		<div id="main"></div>
-    		<div id="mainmodal"></div>
-			 <!-- Modal Structure -->
-			 <div id="pmodalcart" class="modal modal-fixed-footer">
-			   <div class="modal-content">
-      
-			   </div>
-			<div class="modal-footer">
-			  <img class="logomaster" src="images/mastercard.jpg">
-		      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-		    </div>
-			 </div>
-    		
+    		<div class="masterWrapper">
+	    		<div id="loader"></div>
+	  			<div id="mainmenu"></div>
+	    		<div id="main"></div>
+	    		<div id="mainmodal"></div>
+				 <!-- Modal Structure -->
+				 <div id="pmodalcart" class="modal modal-fixed-footer">
+					<div class="modal-content">
+					
+					</div>
+					<div class="modal-footer">
+					  <img class="logomaster" src="images/mastercard.jpg">
+				      <a href="#!" id="pfinally" class=" modal-action modal-close waves-effect waves-green btn-flat">Finalizar</a>
+				    </div>
+				 </div>
+			</div>
+			<div id="login-geral">
+				<div id="fb-root"></div>
+			     <br /><br />   
+			     <div id="">
+			         <br><br><br><br><br><br><br><br><br><br>
+			         <img id="auth-loginlink"  src="images/facebook_logo_signup.png" alt="Facebook Logo" height="40" /> 
+			     </div>
+			</div>
     		<script src="js/jquery.js"></script>
     		<script src="js/materialize.js"></script>
     		<script src="js/initOptions.js"></script>
     		<script src="js/messaging.js"></script>
     		<script src="js/main.js"></script>
-    		<script src="js/messages.js"></script>
+    		<script src="js/CorHttpd.js"></script>
+    		<script src="js/login.js"></script>
+    		
     	</body>
 </html>
