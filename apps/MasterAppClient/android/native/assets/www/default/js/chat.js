@@ -1,5 +1,5 @@
 
-/* JavaScript content from js/index.js in folder common */
+/* JavaScript content from js/chat.js in folder common */
 'use strict';
 function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {

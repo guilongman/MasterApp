@@ -9,8 +9,9 @@ html, body {
 #map {
 	height:100% 
 }
-#mainmap{
+#main{
 	width: 100%;
+	height:75%;
 }
 .topmenu{
 	height:25%;

@@ -1,4 +1,4 @@
-/chat.html
+/css/animate.min.css
 /css/main.css
 /css/materialize.css
 /css/normalize.css
@@ -7,7 +7,7 @@
 /images/icon.png
 /images/thumbnail.png
 /index.html
-/js/index.js
+/js/chat.js
 /js/initOptions.js
 /js/jquery.js
 /js/main.js
@@ -15,6 +15,7 @@
 /js/menu.js
 /js/messages.js
 /pages/cart.html
+/pages/chat.html
 /pages/menu.html
 /worklight/cordova.js
 /worklight/cordova_plugins.js
