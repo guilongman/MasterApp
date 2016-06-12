@@ -130,7 +130,7 @@ $(document).ready(function () {
     setTimeout(function () {
         messenger.recieve("Hello there!<button class='btn waves-effect waves-light' id='modalcart' type='submit' name='action'>Submit<i class='material-icons right'>send</i></button>");
     	$("#modalcart").click(function(){
-    		//$("#pmodalcart").find(".modal-content").load("pages/cart.html");
+    		$("#pmodalcart").find(".modal-content").load("pages/cart.html");
     		$('#pmodalcart').openModal();
     	});
     }, 1500);

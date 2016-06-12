@@ -17,6 +17,20 @@ function wlCommonInit(){
 	$("#mainmenu").load("pages/menu.html");
 	$("#main").load("pages/chat.html");
 
+	messagingInit();
+
+	setTimeout(function() {
+	    sendMessage("Blue man group IBM Devs!");
+
+	    setTimeout(function() {
+	        subscribeToTopic();
+	    }, 5000);
+
+	}, 5000);
+
+	setInterval(function() {
+	    getMessage();
+	}, 3000);
 }
 
 /* JavaScript content from js/main.js in folder android */

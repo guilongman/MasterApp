@@ -14,8 +14,7 @@ function wlCommonInit(){
 	// Common initialization code goes here
 	$("#mainmenu").load("pages/menu.html");
 	$("#main").load("pages/chat.html");
-<<<<<<< HEAD
-	
+
 	messagingInit();
 
 	setTimeout(function() {
@@ -30,7 +29,4 @@ function wlCommonInit(){
 	setInterval(function() {
 	    getMessage();
 	}, 3000);
-=======
-
->>>>>>> 4a6b9e4f6481f58ee24716c9476dc08a754f99b5
 }
