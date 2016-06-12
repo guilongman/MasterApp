@@ -3109,11 +3109,9 @@ td, th {
 
 .collection {
   margin: 0.5rem 0 1rem 0;
-  border: 1px solid #e0e0e0;
-  border-radius: 2px;
   overflow: hidden;
   position: relative;
-  margin-top: 65px;
+  margin-top: 75px;
 }
 
 .collection .collection-item {
@@ -3121,7 +3119,8 @@ td, th {
   line-height: 1.5rem;
   padding: 10px 20px;
   margin: 0;
-  border-bottom: 1px solid #e0e0e0;
+  margin-bottom:10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .collection .collection-item.avatar {
@@ -5235,7 +5234,7 @@ a.waves-effect .waves-ripple {
 }
 
 .modal .modal-content {
-  padding: 10px;
+  padding: 18px;
 }
 
 .modal .modal-close {
