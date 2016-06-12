@@ -1,17 +1,30 @@
 package com.MasterAppClient;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
-import android.os.Bundle;
-
 import org.apache.cordova.CordovaActivity;
 
 import com.worklight.androidgap.api.WL;
-import com.worklight.androidgap.api.WLInitWebFrameworkResult;
 import com.worklight.androidgap.api.WLInitWebFrameworkListener;
+import com.worklight.androidgap.api.WLInitWebFrameworkResult;
+
+import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.widget.Toast;
+
 
 public class MasterAppClient extends CordovaActivity implements WLInitWebFrameworkListener {
+	private MqttConnection connection = null;
+	private MessageReceiver receiver = null;
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -34,6 +47,18 @@ public class MasterAppClient extends CordovaActivity implements WLInitWebFramewo
 		} else {
 			handleWebFrameworkInitFailure(result);
 		}
+		
+		publishTopic topic = new publishTopic();
+		topic.execute("Zambow Foo Bar");
+		
+		subscribeTopic subtopic = new subscribeTopic();
+		subtopic.execute("blah");
+		
+		  IntentFilter filter = new IntentFilter();
+		  filter.addAction("MASTER_APP_REC_MSG");
+		 
+		  receiver = new MessageReceiver();
+		   registerReceiver(receiver, filter);
 	}
 
 	private void handleWebFrameworkInitFailure(WLInitWebFrameworkResult result){
@@ -49,4 +74,110 @@ public class MasterAppClient extends CordovaActivity implements WLInitWebFramewo
 		alertDialogBuilder.setMessage(result.getMessage());
 		alertDialogBuilder.setCancelable(false).create().show();
 	}
+	
+    private class publishTopic extends AsyncTask<String, Void, String> {
+        @Override 
+        protected String doInBackground(String... message) {
+            if (connection == null) {
+                connection = new MqttConnection("bluemangroup",
+                                                "iot.eclipse.org",
+                                                "1883",
+                                                "MYCLIENT",
+                                                getApplicationContext());
+            }
+            
+            connection.connect();
+
+            connection.publish(message[0]);
+            
+            return "success";
+        }
+    }
+
+    private class subscribeTopic extends AsyncTask<String, Void, String> {
+        @Override 
+        protected String doInBackground(String... message) {
+            if (connection == null) {
+                connection = new MqttConnection("bluemangroup",
+                                                "iot.eclipse.org",
+                                                "1883",
+                                                "MYCLIENT",
+                                                getApplicationContext());
+            }
+
+            connection.connect();
+
+            connection.subscribeToTopic();;
+
+            return "success";
+        }
+    }
+    
+    public class MessageReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+           Bundle bdl = intent.getExtras();
+           int command = bdl.getInt("cmd");
+           String message = bdl.getString("msg");
+
+           if (command == 0) {
+               Intent i = new Intent();
+               i.setClass(getApplicationContext(), MasterAppClient.class);
+               Notification notification = createNotification(context, 
+                                                              "MASTERCITY",
+                                                              "Assitente MasterCity",
+                                                              message,
+                                                              0,
+                                                              true,
+                                                              0,
+                                                              i);
+    
+               NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+    
+               notificationManager.notify(1, notification);
+           } else {
+               Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+           }
+        }
+     }
+
+    @Override
+    public void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+        unregisterReceiver(receiver);
+    }
+    
+    private Notification createNotification(Context context, 
+                                            String ticker, 
+                                            String title, 
+                                            String msg, 
+                                            int badge, 
+                                            boolean bridge, 
+                                            int priority, 
+                                            Intent intent) {
+        
+
+        long when = System.currentTimeMillis();
+        Notification notification = null;
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification.Builder notificationBuilder = new Notification.Builder(this)
+                                        .setSmallIcon(R.drawable.micon)
+                                        .setTicker(ticker)
+                                        .setWhen(when)
+                                        .setContentTitle(title)
+                                        .setContentText(msg)
+                                        .setStyle(new Notification.BigTextStyle().bigText(msg))
+                                        .setContentIntent(pendingIntent);
+
+        notification = notificationBuilder.build();
+        notification.priority = priority;
+
+        notification.number = badge;
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+        return notification;
+    }
 }
