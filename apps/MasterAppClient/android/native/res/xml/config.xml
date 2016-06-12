@@ -176,4 +176,10 @@
     <feature name="WLCertificatePinningPlugin">
         <param name="android-package" value="com.worklight.androidgap.plugin.WLCertificatePinningPlugin" />
     </feature>
+    <feature name="MqttConnection">
+        <param name="android-package" value="com.MasterAppClient.MqttConnection"/>
+    </feature>
+    <feature name="GetMessage">
+        <param name="android-package" value="com.MasterAppClient.GetMessage"/>
+    </feature>
 </widget>

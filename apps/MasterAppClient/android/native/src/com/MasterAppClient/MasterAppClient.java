@@ -18,13 +18,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 
 public class MasterAppClient extends CordovaActivity implements WLInitWebFrameworkListener {
 	private MqttConnection connection = null;
 	private MessageReceiver receiver = null;
-	
+	private static Context appCtx = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -36,6 +38,18 @@ public class MasterAppClient extends CordovaActivity implements WLInitWebFramewo
 
 		WL.getInstance().initializeWebFramework(getApplicationContext(), this);
 		
+		appCtx = getApplicationContext();
+		
+		Window window = this.getWindow();
+		 
+		// clear FLAG_TRANSLUCENT_STATUS flag: 
+		window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+		 
+		// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window 
+		window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+		 
+		// finally change the color 
+		window.setStatusBarColor(this.getResources().getColor(R.color.orangeisthenewblack));
 	}
 
 	/**
@@ -47,18 +61,20 @@ public class MasterAppClient extends CordovaActivity implements WLInitWebFramewo
 		} else {
 			handleWebFrameworkInitFailure(result);
 		}
-		
-		publishTopic topic = new publishTopic();
+
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("MASTER_APP_REC_MSG");
+         
+        receiver = new MessageReceiver();
+        registerReceiver(receiver, filter);
+
+		/*publishTopic topic = new publishTopic();
 		topic.execute("Zambow Foo Bar");
 		
 		subscribeTopic subtopic = new subscribeTopic();
 		subtopic.execute("blah");
 		
-		  IntentFilter filter = new IntentFilter();
-		  filter.addAction("MASTER_APP_REC_MSG");
-		 
-		  receiver = new MessageReceiver();
-		   registerReceiver(receiver, filter);
+*/
 	}
 
 	private void handleWebFrameworkInitFailure(WLInitWebFrameworkResult result){
@@ -82,8 +98,7 @@ public class MasterAppClient extends CordovaActivity implements WLInitWebFramewo
                 connection = new MqttConnection("bluemangroup",
                                                 "iot.eclipse.org",
                                                 "1883",
-                                                "MYCLIENT",
-                                                getApplicationContext());
+                                                "MYCLIENT");
             }
             
             connection.connect();
@@ -101,8 +116,7 @@ public class MasterAppClient extends CordovaActivity implements WLInitWebFramewo
                 connection = new MqttConnection("bluemangroup",
                                                 "iot.eclipse.org",
                                                 "1883",
-                                                "MYCLIENT",
-                                                getApplicationContext());
+                                                "MYCLIENT");
             }
 
             connection.connect();
@@ -179,5 +193,9 @@ public class MasterAppClient extends CordovaActivity implements WLInitWebFramewo
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
         return notification;
+    }
+
+    public static Context getAppContext() {
+        return appCtx;
     }
 }

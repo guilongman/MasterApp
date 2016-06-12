@@ -1,5 +1,8 @@
 package com.MasterAppClient;
 
+import org.apache.cordova.CallbackContext;
+import org.apache.cordova.CordovaArgs;
+import org.apache.cordova.CordovaPlugin;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
@@ -8,6 +11,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.MqttTopic;
 import org.eclipse.paho.client.mqttv3.internal.MemoryPersistence;
+import org.json.JSONException;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +19,7 @@ import android.util.Log;
 
 
 // This inner class is a wrapper on top of MQTT client.
-public class MqttConnection implements MqttCallback {
+public class MqttConnection extends CordovaPlugin implements MqttCallback {
     private static final String TAG = "MastercardCity";
     private static final int KEEPALIVE_INTERVAL = 300;
 
@@ -29,12 +33,68 @@ public class MqttConnection implements MqttCallback {
     private boolean mConnected;
     private String mArrivedMessage;
     private Context mAppContext;
+    public static MqttConnection self = null;
+
+    public static MqttConnection getConn() {
+        return self;
+    }
+
+    @Override
+    public boolean execute(String action, CordovaArgs args, CallbackContext callbackContext) throws JSONException {
+        boolean returnValue = false;
+        Log.d("ZAMBOW", "Execute called -> " + action);
+        
+        if (action.equalsIgnoreCase("start")) {
+            if (self == null) {
+                self = new MqttConnection("bluemangroup",
+                                          "iot.eclipse.org",
+                                          "1883",
+                                           "MYCLIENT");
+    
+                self.connect();
+                returnValue = true;
+            }
+        } else if (action.equalsIgnoreCase("publish")) {
+            String message = args.getString(0);
+            if (self != null) {
+                self.publish(message);
+                returnValue = true;
+            } else {
+                self = new MqttConnection("bluemangroup",
+                        "iot.eclipse.org",
+                        "1883",
+                         "MYCLIENT");
+
+                self.connect();
+                self.publish(message);
+                returnValue = true;
+            }
+        } else if (action.equalsIgnoreCase("subscribe")) {
+            if (self != null) {
+                self.subscribeToTopic();
+                returnValue = true;
+            } else {
+                self = new MqttConnection("bluemangroup",
+                                          "iot.eclipse.org",
+                                          "1883",
+                                          "MYCLIENT");
+
+                self.connect();
+                self.subscribeToTopic();
+                returnValue = true;
+            }
+        }
+
+        return returnValue;
+    }
+
+    public MqttConnection() {}
 
     // Creates a new connection given the broker address and initial topic
-    public MqttConnection(String initTopic, String host, String port, String clientID, Context context) {
+    public MqttConnection(String initTopic, String host, String port, String clientID) {
         Log.d(TAG, "Mastercard City - topic [" + initTopic + "] / host [" + host + ":" + port + "] / clientID [" + clientID + "]");
 
-        mAppContext = context;
+        mAppContext = MasterAppClient.getAppContext();
         
         // fetch the device ID from the preferences.
         mClientId = clientID;
@@ -168,10 +228,12 @@ public class MqttConnection implements MqttCallback {
         if (result != null && result.length == 2) {
             int value = Integer.valueOf(result[0]);
 
-            intent.putExtra("cmd", value);
-            intent.putExtra("msg", result[1]);
-            mAppContext.sendBroadcast(intent);
-
+            if (value == 0) {
+                intent.putExtra("cmd", value);
+                intent.putExtra("msg", result[1]);
+    
+                mAppContext.sendBroadcast(intent);
+            }
         } else {
             Log.d(TAG, "Invalid message!");
         }
@@ -179,6 +241,10 @@ public class MqttConnection implements MqttCallback {
 
     public boolean messageArrived() {
         return mArrivedMessage.length() > 0;
+    }
+
+    public void clearMessage() {
+        mArrivedMessage = "";
     }
 
     public String getArrivedMessage() {
