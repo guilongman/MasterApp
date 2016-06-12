@@ -1,0 +1,20 @@
+body
+{
+	background-color: #ff9900 !important;
+}
+
+#login-geral{
+	padding-top: 50%;
+	witdth: 100%;
+}
+
+#texto-welcome
+{
+	color: #FFF;
+	text-align: center;
+}
+
+#auth-loginlink
+{
+	margin-left: 30%;
+}

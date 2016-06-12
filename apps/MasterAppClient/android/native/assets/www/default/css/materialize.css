@@ -3115,6 +3115,7 @@ td, th {
   border-radius: 2px;
   overflow: hidden;
   position: relative;
+  margin-top: 65px;
 }
 
 .collection .collection-item {
@@ -5236,7 +5237,7 @@ a.waves-effect .waves-ripple {
 }
 
 .modal .modal-content {
-  padding: 24px;
+  padding: 10px;
 }
 
 .modal .modal-close {

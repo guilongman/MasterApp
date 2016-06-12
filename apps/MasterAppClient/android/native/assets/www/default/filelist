@@ -1,5 +1,6 @@
 /Archive.zip
 /css/animate.min.css
+/css/login.css
 /css/main.css
 /css/materialize.css
 /css/normalize.css
@@ -51,13 +52,16 @@
 /fonts/roboto/Roboto-Thin.ttf
 /fonts/roboto/Roboto-Thin.woff
 /fonts/roboto/Roboto-Thin.woff2
+/images/facebook_logo.jpg
 /images/icon.png
+/images/mastercard.jpg
 /images/thumbnail.png
 /index.html
 /js/cart.js
 /js/chat.js
 /js/initOptions.js
 /js/jquery.js
+/js/login.js
 /js/main.js
 /js/materialize.js
 /js/menu.js
@@ -65,6 +69,7 @@
 /js/messaging.js
 /pages/cart.html
 /pages/chat.html
+/pages/login.html
 /pages/menu.html
 /worklight/cordova.js
 /worklight/cordova_plugins.js
